@@ -7,14 +7,14 @@ const LeftNav = () => {
     
 
     useEffect(() => {
-        fetch('categories.json')
+        fetch('/categories.json')
             .then(res => res.json())
             .then(data => setCategories(data))
     }, [])
 
     return (
         <div>
-            <h2 className="text-2xl font-semibold mb-6">All Categories ({categories.length})</h2>
+            <h2 className="text-2xl font-semibold mb-6">All Categories</h2>
             <div>
                 {
                     categories.map(category =>
