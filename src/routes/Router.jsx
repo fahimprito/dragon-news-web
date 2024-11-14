@@ -4,6 +4,7 @@ import Home from "../pages/Home";
 import ErrorPage from "../components/ErrorPage/ErrorPage";
 import About from "../pages/About";
 import Login from "../pages/Login";
+import CategoryNews from "../components/CategoryNews/CategoryNews";
 
 const router = createBrowserRouter([
     {
@@ -14,6 +15,19 @@ const router = createBrowserRouter([
             {
                 path: "/",
                 element: <Home></Home>,
+                loader: () => fetch("/news.json"),
+                children: [
+                    {
+                        path: "/",
+                        element: <CategoryNews></CategoryNews>,
+                        loader: () => fetch("/news.json")
+                    },
+                    {
+                        path: "/category/:id",
+                        element: <CategoryNews></CategoryNews>,
+                        loader: () => fetch("/news.json")
+                    }
+                ]
             },
             {
                 path: "/about",

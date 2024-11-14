@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 
 const LeftNav = () => {
     const [categories, setCategories] = useState([]);
+    
 
     useEffect(() => {
         fetch('categories.json')
@@ -17,8 +18,10 @@ const LeftNav = () => {
             <div>
                 {
                     categories.map(category =>
-                        <NavLink key={category.category_id} 
-                        className={`btn btn-lg flex justify-start pl-16 bg-transparent text-xl text-gray-500 border-none`}>
+                        <NavLink
+                            to={`/category/${category.category_id}`}
+                            key={category.category_id}
+                            className={`btn btn-lg flex justify-start pl-16 bg-transparent text-xl text-gray-500 border-none`}>
                             {category.category_name}
                         </NavLink>)
                 }
