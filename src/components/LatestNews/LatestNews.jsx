@@ -8,13 +8,13 @@ const LatestNews = () => {
             <p className="bg-[#D72050] px-6 py-2 text-xl font-medium text-white">Latest</p>
             <Marquee className="text-lg mx-4" pauseOnHover>
                 <Link>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque aliquam hic fugiat voluptas ab quas.
+                    Biden Pledges Nearly $3 Billion To Ukraine In Largest U.S. Military Aid Package Yet
                 </Link>
                 <Link>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque aliquam hic fugiat voluptas ab quas.
+                    Zelensky says he had ‘great conversation with Biden, discussed Kiev`s further steps
                 </Link>
                 <Link>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque aliquam hic fugiat voluptas ab quas.
+                    George Russell wears $110 Daniel Ricciardo merchandise to Zandvoort paddock ahead of Dutch GP
                 </Link>
             </Marquee>
 
