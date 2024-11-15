@@ -1,10 +1,34 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Navbar from "../components/Navbar/Navbar";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
+import { AuthContext } from "../providers/AuthProvider";
 
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
+    const {createUser} = useContext(AuthContext);  
+
+    const handleRegister = e => {
+        e.preventDefault();
+        // get form data 
+        const form = new FormData(e.target);
+        const name = form.get("name");
+        const photo = form.get("photo");
+        const email = form.get("email");
+        const password = form.get("password");
+        console.log({ name, photo, email, password });
+
+         // create user
+         createUser(email, password)
+         .then(result => {
+             console.log(result.user);
+            //  e.target.reset();
+         })
+         .catch(error => {
+             console.log('ERROR', error.message)
+         })
+
+    }
 
     return (
         <div>
@@ -16,7 +40,7 @@ const Register = () => {
                 <h2 className="text-3xl font-semibold mb-6 text-center">Register your account</h2>
                 <div className="divider py-6"></div>
 
-                <form>
+                <form onSubmit={handleRegister}>
                     <div className="form-control mt-4">
                         <label className="label">
                             <span className="label-text font-semibold text-lg">Your Name</span>

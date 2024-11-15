@@ -1,9 +1,20 @@
 import { Link, NavLink } from "react-router-dom";
 import userIcon from "../../assets/user.png"
 import { FaBars } from "react-icons/fa6";
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
 
 
 const Navbar = () => {
+    const { user, logOutUser } = useContext(AuthContext);
+
+    const handleLogOut = () => {
+        logOutUser()
+            .then(() => {
+                console.log('user sign out successfully')
+            })
+            .catch(error => console.log('ERROR', error.message))
+    }
 
     const navLinks = <>
         <li><NavLink to="/">Home</NavLink></li>
@@ -23,6 +34,9 @@ const Navbar = () => {
                             {navLinks}
                         </ul>
                     </div>
+                    <div>
+                        {user?.name}
+                    </div>
 
                 </div>
                 <div className="navbar-center hidden lg:flex">
@@ -36,12 +50,22 @@ const Navbar = () => {
                             <img src={userIcon} />
                         </div>
                     </label>
-                    <Link to="/login">
-                        <button
-                            className="btn bg-[#403F3F] text-white hover:bg-[#333232] text-base rounded-none px-10">
-                            Login
-                        </button>
-                    </Link>
+                    {
+                        user ?
+                            <button
+                                onClick={handleLogOut}
+                                className="btn bg-[#403F3F] text-white hover:bg-[#333232] text-base rounded-none px-10">
+                                Log Out
+                            </button>
+                            :
+                            <Link to="/login">
+                                <button
+                                    className="btn bg-[#403F3F] text-white hover:bg-[#333232] text-base rounded-none px-10">
+                                    Login
+                                </button>
+                            </Link>
+                    }
+
 
                 </div>
             </div>
