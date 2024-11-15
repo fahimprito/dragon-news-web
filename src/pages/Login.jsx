@@ -1,11 +1,33 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar/Navbar";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
+import { AuthContext } from "../providers/AuthProvider";
 
 
 const Login = () => {
+    const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
+    const { loginUser } = useContext(AuthContext);
+
+    const handleLogin = (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const email = form.email.value;
+        const password = form.password.value;
+        console.log({ email, password });
+
+        loginUser(email, password)
+            .then(result => {
+                console.log(result.user);
+                e.target.reset();
+                navigate('/');
+            })
+            .catch(error => {
+                alert(error.message)
+            })
+
+    }
 
     return (
         <div>
@@ -17,7 +39,7 @@ const Login = () => {
                 <h2 className="text-3xl font-semibold mb-6 text-center">Login your account</h2>
                 <div className="divider py-6"></div>
 
-                <form>
+                <form onSubmit={handleLogin}>
                     <div className="form-control mt-4">
                         <label className="label">
                             <span className="label-text font-semibold text-lg">Email address</span>
