@@ -5,14 +5,30 @@ import swimImg from "../../assets/swimming.png"
 import classImg from "../../assets/class.png"
 import playImg from "../../assets/playground.png"
 import adsSection from "../../assets/bg.png"
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
 
 
 const RightNav = () => {
+    const { loginWithGoogle } = useContext(AuthContext);
+
+    const handleGoogleSignIn = () => {
+        loginWithGoogle()
+            .then(() => {
+
+            })
+            .catch(error => {
+                console.log('ERROR', error.message)
+            })
+    }
+
     return (
         <div>
             <div className="p-4 space-y-3 mb-6">
                 <h2 className="text-2xl font-semibold">Login With</h2>
-                <button className="btn btn-outline w-full text-blue-500 font-semibold text-base">
+                <button
+                    onClick={handleGoogleSignIn}
+                    className="btn btn-outline w-full text-blue-500 font-semibold text-base">
                     <FcGoogle></FcGoogle>
                     Login with Google
                 </button>
