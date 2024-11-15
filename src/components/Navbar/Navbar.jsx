@@ -46,8 +46,16 @@ const Navbar = () => {
                 </div>
                 <div className="navbar-end gap-2">
                     <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+
                         <div className="w-10 rounded-full">
-                            <img src={userIcon} />
+                            {
+                                user && user.photoURL ? (
+                                    <img src={user.photoURL} />
+                                ) : (
+                                    <img src={userIcon} />
+                                )
+                            }
+                            
                         </div>
                     </label>
                     {

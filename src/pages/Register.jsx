@@ -2,12 +2,14 @@ import { useContext, useState } from "react";
 import Navbar from "../components/Navbar/Navbar";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { AuthContext } from "../providers/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
-    const { createUser } = useContext(AuthContext);
+    const { createUser, updateUserProfile } = useContext(AuthContext);
     const [error, setError] = useState({});
+    const navigate = useNavigate();
 
     const handleRegister = e => {
         e.preventDefault();
@@ -18,7 +20,7 @@ const Register = () => {
         const email = form.get("email");
         const password = form.get("password");
         console.log({ name, photo, email, password });
-        
+
         setError({});
 
         if (name.length < 4) {
@@ -32,6 +34,13 @@ const Register = () => {
             .then(result => {
                 console.log(result.user);
                 e.target.reset();
+                updateUserProfile({ displayName: name, photoURL: photo })
+                    .then(() => {
+                        navigate("/");
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
             })
             .catch(error => {
                 console.log('ERROR', error.message)
