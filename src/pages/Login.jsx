@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar/Navbar";
 import { useContext, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
@@ -8,7 +8,11 @@ import { AuthContext } from "../providers/AuthProvider";
 const Login = () => {
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
+    const [error, setError] = useState({});
     const { loginUser } = useContext(AuthContext);
+    const location = useLocation();
+    // console.log(location);
+
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -21,10 +25,10 @@ const Login = () => {
             .then(result => {
                 console.log(result.user);
                 e.target.reset();
-                navigate('/');
+                navigate(location.state ? location.state : '/');
             })
-            .catch(error => {
-                alert(error.message)
+            .catch(err => {
+                setError({ ...error, login: err.code });
             })
 
     }
@@ -61,6 +65,11 @@ const Login = () => {
                             {showPassword ? <FaEye /> : <FaEyeSlash />}
                         </button>
                     </div>
+                    {error.login && (
+                        <label className="label text-sm text-red-600">
+                            {error.login}
+                        </label>
+                    )}
 
                     <div className="form-control mt-10">
                         <button className="btn bg-[#403F3F] text-white hover:bg-[#333232] text-base rounded-md">Login</button>

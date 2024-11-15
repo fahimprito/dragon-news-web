@@ -6,7 +6,8 @@ import { AuthContext } from "../providers/AuthProvider";
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
-    const {createUser} = useContext(AuthContext);  
+    const { createUser } = useContext(AuthContext);
+    const [error, setError] = useState({});
 
     const handleRegister = e => {
         e.preventDefault();
@@ -17,16 +18,24 @@ const Register = () => {
         const email = form.get("email");
         const password = form.get("password");
         console.log({ name, photo, email, password });
+        
+        setError({});
 
-         // create user
-         createUser(email, password)
-         .then(result => {
-             console.log(result.user);
-             e.target.reset();
-         })
-         .catch(error => {
-             console.log('ERROR', error.message)
-         })
+        if (name.length < 4) {
+            setError({ ...error, name: "name should be more then 4 character" });
+            return
+        }
+
+
+        // create user
+        createUser(email, password)
+            .then(result => {
+                console.log(result.user);
+                e.target.reset();
+            })
+            .catch(error => {
+                console.log('ERROR', error.message)
+            })
 
     }
 
@@ -46,6 +55,9 @@ const Register = () => {
                             <span className="label-text font-semibold text-lg">Your Name</span>
                         </label>
                         <input type="text" name="name" placeholder="Enter your name" className="input rounded-none bg-base-200" required />
+                        {error.name && (
+                            <label className="label text-sx text-red-500">{error.name}</label>
+                        )}
                     </div>
                     <div className="form-control mt-4">
                         <label className="label">

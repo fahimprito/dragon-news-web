@@ -8,13 +8,13 @@ import { AuthContext } from "../../providers/AuthProvider";
 const Navbar = () => {
     const { user, logOutUser } = useContext(AuthContext);
 
-    const handleLogOut = () => {
-        logOutUser()
-            .then(() => {
-                console.log('user sign out successfully')
-            })
-            .catch(error => console.log('ERROR', error.message))
-    }
+    // const handleLogOut = () => {
+    //     logOutUser()
+    //         .then(() => {
+    //             console.log('user sign out successfully')
+    //         })
+    //         .catch(error => console.log('ERROR', error.message))
+    // }
 
     const navLinks = <>
         <li><NavLink to="/">Home</NavLink></li>
@@ -53,7 +53,7 @@ const Navbar = () => {
                     {
                         user ?
                             <button
-                                onClick={handleLogOut}
+                                onClick={logOutUser}
                                 className="btn bg-[#403F3F] text-white hover:bg-[#333232] text-base rounded-none px-10">
                                 Log Out
                             </button>
